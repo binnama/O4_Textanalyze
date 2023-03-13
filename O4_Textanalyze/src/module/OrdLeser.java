@@ -4,7 +4,7 @@ import java.io.*;
 
 // Innlesing av ett og ett ord fra en fil
 
-class OrdLeser
+public class OrdLeser
 {
     StreamTokenizer sT;
 
@@ -13,10 +13,10 @@ class OrdLeser
     {
 	try
 	{
-	    sT = new StreamTokenizer(
-		   new BufferedReader(
-		     new InputStreamReader(
-		       new FileInputStream(filnavn))));
+        sT = new StreamTokenizer(
+	    new BufferedReader(
+	        new InputStreamReader(
+		    new FileInputStream(filnavn))));
 	}
 	catch (FileNotFoundException e) {};
     }
@@ -24,14 +24,14 @@ class OrdLeser
     // Returnerer neste ord fra filen
     // Returnerer null når alle ord er lest
     public String nesteOrd()
-    {
+{
 	try
 	{
 	    int x = sT.nextToken();
 	    while (sT.ttype != sT.TT_WORD)
 	    {
 		if (x == sT.TT_EOF)
-		    return null;
+		return null;
 		x = sT.nextToken();
 	    }
 	}
@@ -40,15 +40,15 @@ class OrdLeser
 	String ord = sT.sval.toUpperCase();
 	// Fiks: Tokenizer tar med punktum som del av ord
 	if (ord.charAt(ord.length()-1) == '.')
-	    ord = ord.substring(0, ord.length()-1);
+	ord = ord.substring(0, ord.length()-1);
 	return ord;
     }
 
     // Testprogram som viser bruk av en OrdLeser
     // Skriver ut alle ordene på en tekstfil
     public static void main (String argv[])
-    {
-	OrdLeser oL = new OrdLeser("testfil.txt");
+{
+	OrdLeser oL = new OrdLeser("ga.txt");
 	String ord = oL.nesteOrd();
 	while (ord != null)
 	{
