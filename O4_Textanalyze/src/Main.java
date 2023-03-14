@@ -2,7 +2,6 @@ import module.TreeCounter;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello Github!");
         TreeCounter oL = new TreeCounter();
         oL.OrdLeser("module/ga.txt");
         String ord = oL.nesteOrd();
@@ -12,5 +11,6 @@ public class Main {
             ord = oL.nesteOrd(); // TreeCounter coden for så å printe den ut?
 
         }
+        System.out.println("EOF");
     }
 }
