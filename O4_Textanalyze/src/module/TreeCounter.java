@@ -34,7 +34,7 @@ public class TreeCounter {
 
 		String ord = sT.sval.toUpperCase();
 		// Fiks: Tokenizer tar med punktum som del av ord
-		// Denne dealer med alle spesialtegn på en fancy måte. Takk for hjelpen, hjelpelærer
+		// Denne dealer med alle spesialtegn på en fancy måte. Takk for hjelpen, hjelpelærer (+1)
 		ord = ord.replaceAll("[^\\p{L}+$]", "");
 		if (ord.isEmpty())
 			return nesteOrd();
@@ -43,91 +43,101 @@ public class TreeCounter {
 	//Slutt Jans kode
 
 	//https://www.youtube.com/watch?v=M6lYob8STMI
-	Node root;
+	public Node root;
 
-	public void addNode(int key, String word) {
+	/*
+	static Node newNode(String ord) {
+		Node temp = new Node(ord);
+		temp.word = ord;
+		temp.right = temp.left = null;
+		temp.count = 1;
+		return temp;
+	}
+	*/
 
-		Node newWord = new Node(key, word);
+	public void addNode(String word) {
+
+		Node newWord = new Node(word);
+		newWord.count = 1;
 
 		if (root == null)
 			root = newWord;
 
+	/*
+		if (newWord.equals(word) == true) {
+			newWord.count++;
+		}
+*/
 		else {
-			Node focusWord = root;
+			Node focusWord = root; // Setter 'root' siden det er der det starter
 			Node parent;
 
 			while(true) {
 				parent = focusWord;
 
+				// https://www.geeksforgeeks.org/java-program-to-sort-names-in-an-alphabetical-order/
+				// Sammenligner ordene med hverandre i alfabetisk rekkefølge
+				if(word.compareTo(focusWord.word) < 0) {
+					focusWord = focusWord.left;
+
+					if (focusWord == null) {
+						parent.left = newWord;
+						return;
+					}
+
+				}
+				else {
+					focusWord = focusWord.right;
+
+					if(focusWord == null) {
+						parent.right = newWord;
+						return;
+					}
+				}
 			}
 		}
 	}
 
-	class Node {
-		int key;
+	// Fra minst til størst
+	public static void inOrderTraverse(Node focusWord) {
+		if(focusWord != null) {
+			// Traverserer venstre side
+			inOrderTraverse(focusWord.left);
+			System.out.println(focusWord);
+
+			// Traverserer høyre side
+			inOrderTraverse(focusWord.right);
+			//System.out.println(focusWord);
+		}
+	}
+
+	public static void preorderTraverse(Node focusWord) {
+		if (focusWord == null) {
+			return;
+		}
+		preorderTraverse(focusWord.left);
+		preorderTraverse(focusWord.right);
+		//System.out.println(focusWord.word + " ");
+	}
+
+	static class Node {
 		String word;
+		int count;
 
 		Node left;
 		Node right;
 
-		Node (int key, String word) {
-			this.key = key;
+
+		Node (String word) {
 			this.word = word;
+			this.count = count;
+		}
+
+		public String toString() {
+			return "Word: " + word + ", value: " + count;
 		}
 
 	}
-
-
-/*
-	// Makes an empty node-class
-	public static class Node {
-		String word;
-		Node left;
-		Node right;
-
-		public Node(String word) {
-			this.word = word;
-			right = null;
-			left = null;
-		}
-	}
-
-	public Node root;
-	public binaryWordTree() {
-		this.root = null;
-	}
-
-	public void addRecursive(String word) {
-		this.root = addRecursive(root, word);
-	}
-	private Node addRecursive (Node current, String word) {
-
-		if (current == null)
-			return new Node(word);
-
-		if (word <= current.word) {
-			current.left = addRecursive(current.left, word);
-		}
-		if (word >= current word) {
-			current.right == addRecursive(current.right, word);
-		}
-		else {
-			// When the value already exists
-			return current;
-		}
-		return current;
-	}
-
-	public void add(String word) {
-		root = addRecursive(root, word);
-	}
-
-	/*
-	private binaryWordTree createBinaryTree() {
-		binaryWordTree bt = new binaryWordTree();
-
-		return bt;
-	}
-	 */
-
+	// To count duplicates
+	// https://www.geeksforgeeks.org/how-to-handle-duplicates-in-binary-search-tree/
 }

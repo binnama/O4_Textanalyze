@@ -48,7 +48,7 @@ public class OrdLeser
     // Skriver ut alle ordene på en tekstfil
 public static void main (String argv[])
 {
-    OrdLeser oL = new OrdLeser("ga.txt");
+    OrdLeser oL = new OrdLeser("C:\\Users\\Binna\\Documents\\Studier_HALDEN\\alg.dat\\O4_Textanalyze\\O4_Textanalyze\\src\\module\\TestFile.txt");
     String ord = oL.nesteOrd();
     while (ord != null)
     {
