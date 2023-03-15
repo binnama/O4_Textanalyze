@@ -8,14 +8,8 @@ public class Main {
         while (ord != null)
         {
             oL.addNode(ord);
-            //System.out.println(ord); // Kan jeg bytte ut denne delen med
             ord = oL.nesteOrd(); // TreeCounter coden for så å printe den ut?
-
         }
-        //System.out.println("EOF");
-
         oL.inOrderTraverse(oL.root);
-
-        //oL.preorderTraverse(oL.root);
     }
 }

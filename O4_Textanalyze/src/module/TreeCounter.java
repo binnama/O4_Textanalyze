@@ -1,6 +1,5 @@
 package module;
 
-
 import java.io.*;
 
 public class TreeCounter {
@@ -42,55 +41,40 @@ public class TreeCounter {
 	}
 	//Slutt Jans kode
 
-	//https://www.youtube.com/watch?v=M6lYob8STMI
 	public Node root;
-
-	/*
-	static Node newNode(String ord) {
-		Node temp = new Node(ord);
-		temp.word = ord;
-		temp.right = temp.left = null;
-		temp.count = 1;
-		return temp;
-	}
-	*/
 
 	public void addNode(String word) {
 
-		Node newWord = new Node(word);
-		newWord.count = 1;
-
 		if (root == null)
-			root = newWord;
+			root = new Node(word);
 
-	/*
-		if (newWord.equals(word) == true) {
-			newWord.count++;
-		}
-*/
 		else {
+			//root.count = 1;
 			Node focusWord = root; // Setter 'root' siden det er der det starter
 			Node parent;
 
-			while(true) {
+			while (true) {
 				parent = focusWord;
 
 				// https://www.geeksforgeeks.org/java-program-to-sort-names-in-an-alphabetical-order/
 				// Sammenligner ordene med hverandre i alfabetisk rekkefølge
-				if(word.compareTo(focusWord.word) < 0) {
+				if (word.compareTo(focusWord.word) < 0) {
 					focusWord = focusWord.left;
 
 					if (focusWord == null) {
-						parent.left = newWord;
+						parent.left = new Node(word);
 						return;
 					}
 
-				}
-				else {
+				} else if (word.compareTo(focusWord.word) == 0) {
+					focusWord.count++;
+					break;
+
+				} else {
 					focusWord = focusWord.right;
 
-					if(focusWord == null) {
-						parent.right = newWord;
+					if (focusWord == null) {
+						parent.right = new Node(word);
 						return;
 					}
 				}
@@ -100,6 +84,7 @@ public class TreeCounter {
 
 	// Fra minst til størst
 	public static void inOrderTraverse(Node focusWord) {
+		//System.out.println(focusWord);
 		if(focusWord != null) {
 			// Traverserer venstre side
 			inOrderTraverse(focusWord.left);
@@ -107,36 +92,23 @@ public class TreeCounter {
 
 			// Traverserer høyre side
 			inOrderTraverse(focusWord.right);
-			//System.out.println(focusWord);
 		}
 	}
 
-	public static void preorderTraverse(Node focusWord) {
-		if (focusWord == null) {
-			return;
-		}
-		preorderTraverse(focusWord.left);
-		preorderTraverse(focusWord.right);
-		//System.out.println(focusWord.word + " ");
-	}
-
-	static class Node {
+	class Node {
 		String word;
-		int count;
-
+		int count = 1;
 		Node left;
 		Node right;
 
-
 		Node (String word) {
 			this.word = word;
-			this.count = count;
+			//this.count = count;
 		}
 
 		public String toString() {
 			return "Word: " + word + ", value: " + count;
 		}
-
 	}
 	// To count duplicates
 	// https://www.geeksforgeeks.org/how-to-handle-duplicates-in-binary-search-tree/
